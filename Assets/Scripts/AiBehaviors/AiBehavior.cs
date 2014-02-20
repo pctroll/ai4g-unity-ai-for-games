@@ -5,6 +5,10 @@ public abstract class AiBehavior {
 
 	protected AiSteering m_Steering;
 
+	public AiBehavior () {
+		m_Steering = new AiSteering();
+	}
+
 	public virtual AiSteering GetSteering () {
 		return new AiSteering();
 	}

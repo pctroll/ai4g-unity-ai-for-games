@@ -6,7 +6,7 @@ public class AiKFlee : AiBehavior {
 	GameObject m_Escaper, m_Target;
 	float m_MaxSpeed;
 	bool m_IsSetUp;
-	public AiKFlee (GameObject escaper, GameObject target, float maxSpeed) {
+	public AiKFlee (GameObject escaper, GameObject target, float maxSpeed) : base () {
 		m_Escaper = escaper;
 		m_Target = target;
 		m_MaxSpeed = maxSpeed;
@@ -20,7 +20,6 @@ public class AiKFlee : AiBehavior {
 
 	public override AiSteering GetSteering ()
 	{
-		m_Steering = new AiSteering();
 		if (!m_IsSetUp) {
 			return m_Steering;
 		}

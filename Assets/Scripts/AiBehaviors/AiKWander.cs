@@ -8,7 +8,7 @@ public class AiKWander : AiBehavior {
 	float m_MaxRotation;
 	float m_Rand;
 
-	public AiKWander (GameObject character, float maxSpeed, float maxRotation) {
+	public AiKWander (GameObject character, float maxSpeed, float maxRotation) : base () {
 		m_Character = character;
 		m_MaxSpeed = maxSpeed;
 		m_MaxRotation = maxRotation;

@@ -5,7 +5,7 @@ public class AiKSeek : AiBehavior {
 	GameObject m_Seeker, m_Target;
 	float m_MaxSpeed;
 	bool m_IsSetUp;
-	public AiKSeek (GameObject seeker, GameObject target, float maxSpeed) {
+	public AiKSeek (GameObject seeker, GameObject target, float maxSpeed) : base () {
 		m_Seeker = seeker;
 		m_Target = target;
 		m_MaxSpeed = maxSpeed;
@@ -19,7 +19,6 @@ public class AiKSeek : AiBehavior {
 
 	public override AiSteering GetSteering ()
 	{
-		m_Steering = new AiSteering();
 		if (!m_IsSetUp) {
 			return m_Steering;
 		}

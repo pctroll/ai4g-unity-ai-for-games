@@ -9,7 +9,7 @@ public class AiKArrive : AiBehavior {
 	float m_Radius;
 	float m_TimeToTarget;
 
-	public AiKArrive (GameObject character, GameObject target, float maxSpeed, float radius, float timeToTarget) {
+	public AiKArrive (GameObject character, GameObject target, float maxSpeed, float radius, float timeToTarget) : base () {
 		m_Character = character;
 		m_Target = target;
 		m_MaxSpeed = maxSpeed;
@@ -19,7 +19,6 @@ public class AiKArrive : AiBehavior {
 
 	public override AiSteering GetSteering ()
 	{
-		m_Steering = new AiSteering();
 		m_Steering.Linear = m_Target.transform.position - m_Character.transform.position;
 		if (m_Steering.Linear.sqrMagnitude < m_Radius * m_Radius) {
 			return m_Steering;
