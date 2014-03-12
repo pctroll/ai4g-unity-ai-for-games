@@ -1,23 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AiSeek : MonoBehaviour {
-	
-	public float Weight;
-	public bool DrawLines;
+public class AiSeek : AiBehavior {
+
 	public Color LineColor;
-	bool m_IsSet = false;
-	AiAgent m_Agent;
 	GameObject m_Character;
 	GameObject m_Target;
 	float m_MaxAccel;
 
 	void Start () {
-		if (Weight <= 0.0f)
-			Weight = 1.0f;
-		m_Agent = gameObject.GetComponent<AiAgent>();
-		if (m_Agent == null)
-			Debug.LogError("No AiAgent component found");
+		base.Start();
 	}
 
 	void Update () {
@@ -27,11 +19,10 @@ public class AiSeek : MonoBehaviour {
 			m_MaxAccel = m_Agent.MaxAccel;
 			AiSteering steering = new AiSteering();
 			steering.Linear = m_Target.transform.position - m_Character.transform.position;
-			steering.Linear = steering.Linear.normalized * m_Agent.MaxAccel;
+			steering.Linear = steering.Linear.normalized * m_MaxAccel;
 			m_Agent.SetSteering(steering);
 			if (DrawLines) {
-				Vector3 destination = m_Character.transform.position + steering.Linear;
-				Debug.DrawRay(m_Character.transform.position, destination, LineColor);
+				Debug.DrawRay(m_Character.transform.position, m_Agent.Velocity, LineColor);
 			}
 		}
 	}

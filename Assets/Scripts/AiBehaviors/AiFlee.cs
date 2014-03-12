@@ -1,21 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AiFlee : MonoBehaviour {
+public class AiFlee : AiBehavior {
 
-	public float Weight;
-	public bool DrawLines;
 	public Color LineColor;
-
-	AiAgent m_Agent;
-	float m_MaxAccel;
 	GameObject m_Character;
 	GameObject m_Target;
+	float m_MaxAccel;
 	
 	void Start () {
-		m_Agent = gameObject.GetComponent<AiAgent>();
-		if (m_Agent == null)
-			Debug.LogError("No AiAgent component found");
+		base.Start();
 	}
 	
 	void Update () {
@@ -28,8 +22,7 @@ public class AiFlee : MonoBehaviour {
 			steering.Linear = steering.Linear.normalized * m_Agent.MaxAccel;
 			m_Agent.SetSteering(steering);
 			if (DrawLines) {
-				Vector3 destination = m_Character.transform.position + steering.Linear;
-				Debug.DrawRay(m_Character.transform.position, destination, LineColor);
+				Debug.DrawRay(m_Character.transform.position, m_Agent.Velocity, LineColor);
 			}
 		}
 	}
