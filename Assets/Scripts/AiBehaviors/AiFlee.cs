@@ -1,22 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AiFlee : AiBehavior {
-	
+public class AiFlee : MonoBehaviour {
+
+	public float Weight;
+	public bool DrawLines;
+	public Color LineColor;
+
+	AiAgent m_Agent;
+	float m_MaxAccel;
 	GameObject m_Character;
 	GameObject m_Target;
-	float m_MaxAccel;
 	
-	public AiFlee (GameObject character, GameObject target, float maxAccel) : base () {
-		m_Character = character;
-		m_Target = target;
-		m_MaxAccel = maxAccel;
+	void Start () {
+		m_Agent = gameObject.GetComponent<AiAgent>();
+		if (m_Agent == null)
+			Debug.LogError("No AiAgent component found");
 	}
 	
-	public override AiSteering GetSteering ()
-	{
-		m_Steering.Linear = m_Character.transform.position - m_Target.transform.position;
-		m_Steering.Linear = m_Steering.Linear.normalized * m_MaxAccel;
-		return m_Steering;
+	void Update () {
+		m_Character = m_Agent.gameObject;
+		m_Target = m_Agent.Target;
+		if (m_Agent != null && m_Character != null && m_Target != null) {
+			m_MaxAccel = m_Agent.MaxAccel;
+			AiSteering steering = new AiSteering();
+			steering.Linear = m_Character.transform.position - m_Target.transform.position;
+			steering.Linear = steering.Linear.normalized * m_Agent.MaxAccel;
+			m_Agent.SetSteering(steering);
+			if (DrawLines) {
+				Vector3 destination = m_Character.transform.position + steering.Linear;
+				Debug.DrawRay(m_Character.transform.position, destination, LineColor);
+			}
+		}
 	}
 }
