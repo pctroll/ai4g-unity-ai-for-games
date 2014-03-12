@@ -24,7 +24,8 @@ public class AiKWander : AiBehavior {
 		}
 		m_Steering.Linear = m_Steering.Linear.normalized * m_MaxSpeed;
 		m_Steering.Linear = Quaternion.AngleAxis(m_MaxRotation * m_Rand, Vector2.up) * m_Steering.Linear;
-		SetNewOrientation(m_Character.transform, m_Steering.Linear);
+		//SetNewOrientation(m_Character.transform, m_Steering.Linear);
+		m_Steering.Angular = m_Rand * m_MaxRotation;
 		return m_Steering;
 	}
 }
