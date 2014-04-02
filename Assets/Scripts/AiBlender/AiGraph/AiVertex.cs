@@ -1,5 +1,7 @@
-using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,7 +28,7 @@ public class AiVertex : MonoBehaviour {
     void Update ()
     {
     }
-
+#if UNITY_EDITOR
     void OnDrawGizmos ()
     {
         // Draw vertices
@@ -47,6 +49,7 @@ public class AiVertex : MonoBehaviour {
             }
         }
     }
+#endif
 
     protected void DefineSuccessors () {
 

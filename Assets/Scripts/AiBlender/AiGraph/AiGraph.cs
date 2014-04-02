@@ -13,7 +13,7 @@ public class AiGraph : MonoBehaviour {
         m_Vertices = GameObject.FindGameObjectsWithTag("AiVertex");
         foreach (GameObject v in m_Vertices)
         {
-            AiVertex ver = v.GetComponent<AiVertex>();
+            //AiVertex ver = v.GetComponent<AiVertex>();
             //Debug.Log(ver.m_Successors.Count + " successors");
         }
         
