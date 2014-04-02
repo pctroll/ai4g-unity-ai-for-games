@@ -20,8 +20,15 @@ public class AiAlign : AiBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (m_Agent != null) {
+			m_Agent.SetSteering(GetSteering());
+		}
+	}
+
+	public override AiSteering GetSteering ()
+	{
 		if (m_Agent != null && m_Target != null) {
-			float targetOrientation = m_Target.GetComponent<PlayerController>().Orientation;
+			float targetOrientation = m_Target.GetComponent<AiAgent>().Orientation;
 			float characterOrientation = m_Character.GetComponent<AiAgent>().Orientation;
 			float rotation = targetOrientation - characterOrientation;
 			rotation = MapToRange(rotation);
@@ -43,5 +50,6 @@ public class AiAlign : AiBehaviour {
 				m_Agent.SetSteering(m_Steering);
 			}
 		}
+		return base.GetSteering ();
 	}
 }

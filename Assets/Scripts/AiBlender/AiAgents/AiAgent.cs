@@ -19,27 +19,27 @@ public class AiAgent : MonoBehaviour {
 	/// Whether the behaviors must be blended or not.
 	/// Internal use.
 	/// </summary>
-	bool m_Blended = false;
+	protected bool m_Blended = false;
 
 	/// <summary>
 	/// The agent's orientation.
 	/// </summary>
-	public float m_Orientation;
+	protected float m_Orientation;
 
 	/// <summary>
 	/// The agent's rotation
 	/// </summary>
-	float m_Rotation;
+	protected float m_Rotation;
 
 	/// <summary>
 	/// The agent's velocity.
 	/// </summary>
-	Vector3 m_Velocity;
+	protected Vector3 m_Velocity;
 
 	/// <summary>
 	/// The agent's resulting steering from coupling behaviors.
 	/// </summary>
-	AiSteering m_Steering;
+	protected AiSteering m_Steering;
 
 	/// <summary>
 	/// Gets the agent's velocity.
@@ -57,6 +57,7 @@ public class AiAgent : MonoBehaviour {
 	public float Orientation
 	{
 		get { return m_Orientation; }
+		set { m_Orientation = value; }
 	}
 
 	public float Rotation

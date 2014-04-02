@@ -35,7 +35,7 @@ public class AiEvade : AiFlee {
 				prediction = distance / speed;
 			}
 			m_Target.transform.position = m_EvadeTarget.transform.position;
-			Vector3 targetPrediction = m_EvadeTarget.GetComponent<PlayerController>().Velocity * prediction;
+			Vector3 targetPrediction = m_EvadeTarget.GetComponent<AiAgent>().Velocity * prediction;
 			m_Target.transform.position += targetPrediction;
 		}
 		return base.GetSteering ();

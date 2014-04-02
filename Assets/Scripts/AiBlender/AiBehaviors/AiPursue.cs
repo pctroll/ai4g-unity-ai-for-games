@@ -35,7 +35,7 @@ public class AiPursue : AiSeek {
 				prediction = distance / speed;
 			}
 			m_Target.transform.position = m_PursueTarget.transform.position;
-			Vector3 targetPrediction = m_PursueTarget.GetComponent<PlayerController>().Velocity * prediction;
+			Vector3 targetPrediction = m_PursueTarget.GetComponent<AiAgent>().Velocity * prediction;
 			m_Target.transform.position += targetPrediction;
 		}
 		return base.GetSteering ();
