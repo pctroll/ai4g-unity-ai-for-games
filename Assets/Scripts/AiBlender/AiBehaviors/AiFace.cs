@@ -3,11 +3,16 @@ using System.Collections;
 
 public class AiFace : AiAlign {
 
-	GameObject m_FaceTarget;
+	protected GameObject m_FaceTarget;
 
 	// Use this for initialization
 	void Start () {
-		base.Init();
+		Init();
+	}
+
+	public override void Init ()
+	{
+		base.Init ();
 		m_FaceTarget = m_Target;
 		m_Target = new GameObject();
 		m_Target.AddComponent<AiAgent>();

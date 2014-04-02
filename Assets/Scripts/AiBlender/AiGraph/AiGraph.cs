@@ -14,10 +14,10 @@ public class AiGraph : MonoBehaviour {
         foreach (GameObject v in m_Vertices)
         {
             AiVertex ver = v.GetComponent<AiVertex>();
-            Debug.Log(ver.m_Successors.Count + " successors");
+            //Debug.Log(ver.m_Successors.Count + " successors");
         }
         
-        List<GameObject> res = Astar(m_Vertices[0], m_Vertices[2]);
+        /*List<GameObject> res = Astar(m_Vertices[0], m_Vertices[2]);
         if (res.Count > 0)
         {
             Debug.Log("A* path:");
@@ -25,7 +25,7 @@ public class AiGraph : MonoBehaviour {
             foreach (GameObject o in res)
                 path += o.transform.position.ToString() + " | ";
             Debug.Log(path);
-        }
+        }*/
     }
 
     // Update is called once per frame

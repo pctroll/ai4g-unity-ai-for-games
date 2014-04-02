@@ -65,7 +65,15 @@ public abstract class AiBehaviour : MonoBehaviour {
 		return rotation;
 	}
 
+	public Vector3 GetOriAsVec (float orientation) {
+		Vector3 vector  = Vector3.zero;
+		vector.x = Mathf.Cos(orientation * Mathf.Deg2Rad) * 1.0f;
+		vector.z = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1.0f;
+		return vector.normalized;
+	}
+
 	public void DrawCircle (Vector3 position, Color color, float radius = 1.0f) {
+		position.y = 0.15f;
 		Vector3 current, next, direction;
 		float x, z;
 		float increment = 0.3f;
