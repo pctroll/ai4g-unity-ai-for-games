@@ -71,7 +71,7 @@ public class AiAgent : MonoBehaviour {
 	void Start () {
 		//Debug.Log("Start AiAgent");
 		m_Velocity = Vector3.zero;
-		m_Orientation = Random.Range(0.0f, 359.0f);
+		m_Orientation = 0.0f;
 		m_Steering = new AiSteering();
 		gameObject.transform.Rotate(Vector3.up, m_Orientation, Space.Self);
 	}
