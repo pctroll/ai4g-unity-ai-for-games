@@ -22,9 +22,8 @@ public class AiLookWhereYoureGoing : AiAlign {
 	{
 		if (m_Agent != null) {
 			if (m_Agent.Velocity.sqrMagnitude > 0.0f) {
-				Vector3 forward = gameObject.transform.position + m_Agent.Velocity;
-				m_Target.transform.LookAt(forward);
-				m_Target.GetComponent<AiAgent>().Orientation = m_Target.transform.rotation.eulerAngles.y;
+				float orientation = Mathf.Atan2(m_Agent.Velocity.x, m_Agent.Velocity.z) * Mathf.Rad2Deg;
+				m_Target.GetComponent<AiAgent>().Orientation = orientation;
 			}
 		}
 		return base.GetSteering ();

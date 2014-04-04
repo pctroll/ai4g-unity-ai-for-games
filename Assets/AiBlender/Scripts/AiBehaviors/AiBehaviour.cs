@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 /// <summary>
 /// Ai behaviour class.
 /// </summary>
-public abstract class AiBehaviour : MonoBehaviour {
+[Serializable]
+public class AiBehaviour : MonoBehaviour {
 	/// <summary>
 	/// The behaviours weight.
 	/// </summary>
+	[SerializeField]
 	public float m_Weight;
 
 	/// <summary>
@@ -36,8 +39,6 @@ public abstract class AiBehaviour : MonoBehaviour {
 
 	public virtual void Init () {
 		m_Steering = new AiSteering();
-		if (m_Weight <= 0.0f)
-			m_Weight = 1.0f;
 		m_Character = this.gameObject;
 		m_Agent = gameObject.GetComponent<AiAgent>();
 		if (m_Agent == null)
@@ -67,8 +68,8 @@ public abstract class AiBehaviour : MonoBehaviour {
 
 	public Vector3 GetOriAsVec (float orientation) {
 		Vector3 vector  = Vector3.zero;
-		vector.x = Mathf.Cos(orientation * Mathf.Deg2Rad) * 1.0f;
-		vector.z = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1.0f;
+		vector.z = Mathf.Cos(orientation * Mathf.Deg2Rad) * 1.0f;
+		vector.x = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1.0f;
 		return vector.normalized;
 	}
 

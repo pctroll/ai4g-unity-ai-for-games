@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 /// <summary>
 /// AI Seek behavior.
 /// </summary>
+[Serializable]
 public class AiSeek : AiBehaviour {
 	/// <summary>
 	/// The agent's maximum acceleration.

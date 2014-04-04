@@ -88,7 +88,6 @@ public class AiAgent : MonoBehaviour {
 		m_Orientation = transform.rotation.eulerAngles.y;
 		transform.rotation = new Quaternion();
 		m_Orientation += m_Rotation * Time.deltaTime;
-		//m_Orientation += 1.0f * Time.deltaTime;
 		transform.Rotate(Vector3.up, m_Orientation, Space.Self);
 	}
 
@@ -105,6 +104,8 @@ public class AiAgent : MonoBehaviour {
 
 		if (m_Steering.Linear.Equals (Vector3.zero))
 			m_Velocity = Vector3.zero;
+		if (m_Steering.Angular == 0.0f)
+			m_Rotation = 0.0f;
 		m_Blended = false;
 	}
 
@@ -113,14 +114,15 @@ public class AiAgent : MonoBehaviour {
 	/// </summary>
 	/// <param name="steering">Steering.</param>
 	/// <param name="isAdditive">If set to <c>true</c> is additive.</param>
-	public void SetSteering (AiSteering steering, bool isAdditive = false) {
+	public void SetSteering (AiSteering steering, float weight = 1.0f) {
 		//Debug.Log("SetSteering AiAgent");
 		if (!m_Blend && !m_Blended) {
 			m_Steering = steering;
 			m_Blended = true;
 		}
 		else {
-			// TODO pending additive steering behavior for blending
+			m_Steering.Linear += (weight * steering.Linear);
+			m_Steering.Angular += (weight * steering.Angular);
 		}
 	}
 }
