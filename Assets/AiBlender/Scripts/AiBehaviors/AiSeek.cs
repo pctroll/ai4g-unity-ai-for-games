@@ -28,7 +28,7 @@ public class AiSeek : AiBehaviour {
 	/// </summary>
 	void Update () {
 		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
+			m_Agent.SetSteering(GetSteering(), m_Weight);
 		}
 	}
 	public override AiSteering GetSteering ()
