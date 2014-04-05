@@ -10,7 +10,7 @@ public class AiBehaviour : MonoBehaviour {
 	/// The behaviours weight.
 	/// </summary>
 	[SerializeField]
-	public float m_Weight;
+	public float m_Weight = 1;
 
 	/// <summary>
 	/// Whether to draw debug lines.
@@ -45,6 +45,12 @@ public class AiBehaviour : MonoBehaviour {
 			Debug.LogError("No AiAgent component found");
 	}
 
+	public virtual void Update () {
+		if (m_Agent!= null) {
+			m_Agent.SetSteering(GetSteering());
+		}
+	}
+
 	public virtual AiSteering GetSteering () {
 		return m_Steering;
 	}
@@ -53,6 +59,14 @@ public class AiBehaviour : MonoBehaviour {
 		if (velocity.sqrMagnitude > 0.0f) {
 			transform.LookAt(transform.position + velocity);
 		}
+	}
+
+	public float GetNewOrientation (float currentOrientation, Vector3 velocity) {
+		float orientation = currentOrientation;
+		if (velocity.sqrMagnitude > 0.0f) {
+			orientation = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+		}
+		return orientation;
 	}
 
 	public float MapToRange (float rotation) {

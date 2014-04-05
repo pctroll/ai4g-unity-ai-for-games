@@ -79,7 +79,7 @@ public class AiAgent : MonoBehaviour {
 	/// <summary>
 	/// Update this instance.
 	/// </summary>
-	void Update () {
+	public virtual void Update () {
 		//Debug.Log("Update AiAgent");
 		m_Steering = new AiSteering();
 		Vector3 translation = m_Velocity * Time.deltaTime;
@@ -94,7 +94,7 @@ public class AiAgent : MonoBehaviour {
 	/// <summary>
 	/// Updates everything after calculating behaviors.
 	/// </summary>
-	void LateUpdate () {
+	public virtual void LateUpdate () {
 		//Debug.Log("LateUpdate AiAgent");
 		m_Velocity += m_Steering.Linear * Time.deltaTime;
 		m_Rotation += m_Steering.Angular * Time.deltaTime;
