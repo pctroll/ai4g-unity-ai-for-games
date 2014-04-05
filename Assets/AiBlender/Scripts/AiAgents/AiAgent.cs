@@ -85,9 +85,11 @@ public class AiAgent : MonoBehaviour {
 		Vector3 translation = m_Velocity * Time.deltaTime;
 		transform.Translate(translation, Space.World);
 
-		m_Orientation = transform.rotation.eulerAngles.y;
-		transform.rotation = new Quaternion();
+		//m_Orientation = transform.rotation.eulerAngles.y;
 		m_Orientation += m_Rotation * Time.deltaTime;
+		m_Orientation = m_Orientation < 0.0f ? 360.0f + m_Orientation : m_Orientation;
+		m_Orientation = m_Orientation > 359.9f ? m_Orientation - 360.0f : m_Orientation;
+		transform.rotation = new Quaternion();
 		transform.Rotate(Vector3.up, m_Orientation, Space.Self);
 	}
 

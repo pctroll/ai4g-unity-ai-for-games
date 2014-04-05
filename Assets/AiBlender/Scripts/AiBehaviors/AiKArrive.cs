@@ -22,8 +22,8 @@ public class AiKArrive : AiBehaviour {
 			if (m_Steering.Linear.sqrMagnitude > m_Agent.m_MaxSpeed * m_Agent.m_MaxSpeed) {
 				m_Steering.Linear = m_Steering.Linear.normalized * m_Agent.m_MaxSpeed;
 			}
-			//m_Agent.Orientation = GetNewOrientation(m_Agent.Orientation, m_Steering.Linear);
-			SetNewOrientation(gameObject.transform, m_Steering.Linear);
+			m_Agent.Orientation = GetNewOrientation(m_Agent.Orientation, m_Steering.Linear);
+			//SetNewOrientation(gameObject.transform, m_Steering.Linear);
 		}
 		return m_Steering;
 	}

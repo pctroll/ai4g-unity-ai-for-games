@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[ExecuteInEditMode]
 public class AiMscMessage : MonoBehaviour {
 
 	public string m_MsgBody;

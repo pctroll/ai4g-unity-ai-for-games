@@ -12,7 +12,7 @@ public class AiKFlee : AiBehaviour {
 		if (m_Agent!= null && m_Target != null) {
 			m_Steering.Linear = gameObject.transform.position - m_Target.transform.position;
 			m_Steering.Linear = m_Steering.Linear.normalized * m_Agent.m_MaxSpeed;
-			SetNewOrientation(gameObject.transform, m_Steering.Linear);
+			m_Agent.Orientation = GetNewOrientation(m_Agent.Orientation, m_Steering.Linear);
 		}
 		return m_Steering;
 	}
