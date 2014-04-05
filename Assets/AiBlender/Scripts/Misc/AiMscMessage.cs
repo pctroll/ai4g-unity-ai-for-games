@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using System.Collections;
 [ExecuteInEditMode]
 public class AiMscMessage : MonoBehaviour {
 
+	private string m_MsgTitle;
 	public string m_MsgBody;
 	GUIStyle m_MsgTitleStyle;
 	GUIStyle m_MsgBodyStyle;
@@ -16,8 +18,13 @@ public class AiMscMessage : MonoBehaviour {
 		m_MsgBodyStyle = new GUIStyle(GUI.skin.label);
 		m_MsgBodyStyle.fontSize = (int)(Screen.height * 0.04f);
 		m_MsgBodyStyle.alignment = TextAnchor.UpperCenter;
+		m_MsgTitle = Application.loadedLevelName;
+#if UNITY_EDITOR
+		string[] name = EditorApplication.currentScene.Split('/');
+		m_MsgTitle = name[name.Length-1].Replace(".unity", "");
+#endif
 		GUILayout.BeginVertical(m_MsgStyle);
-		GUILayout.Label(Application.loadedLevelName, m_MsgTitleStyle, GUILayout.Width((float)Screen.width));
+		GUILayout.Label(m_MsgTitle, m_MsgTitleStyle, GUILayout.Width((float)Screen.width));
 		GUILayout.Label(m_MsgBody, m_MsgBodyStyle, GUILayout.Width((float)Screen.width));
 		GUILayout.EndVertical();
 	}

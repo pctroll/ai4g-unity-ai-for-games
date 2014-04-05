@@ -24,7 +24,7 @@ public class AiAgent : MonoBehaviour {
 	/// <summary>
 	/// The agent's orientation.
 	/// </summary>
-	protected float m_Orientation;
+	public float m_Orientation;
 
 	/// <summary>
 	/// The agent's rotation
@@ -72,6 +72,7 @@ public class AiAgent : MonoBehaviour {
 		//Debug.Log("Start AiAgent");
 		m_Velocity = Vector3.zero;
 		m_Orientation = 0.0f;
+		m_Rotation = 0.0f;
 		m_Steering = new AiSteering();
 		gameObject.transform.Rotate(Vector3.up, m_Orientation, Space.Self);
 	}
