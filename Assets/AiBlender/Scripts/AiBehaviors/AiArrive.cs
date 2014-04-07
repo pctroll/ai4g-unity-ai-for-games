@@ -20,7 +20,7 @@ public class AiArrive : AiBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		//m_Character = m_Agent.gameObject;
 		m_TargetRadius = Mathf.Clamp(m_TargetRadius, 0.1f, Mathf.Infinity);
 		m_SlowRadius = Mathf.Clamp(m_SlowRadius, 0.1f, Mathf.Infinity);
@@ -52,5 +52,10 @@ public class AiArrive : AiBehaviour {
 				DrawCircle(m_Target.transform.position, m_SlowRadiusColor, m_SlowRadius);
 			}
 		}
+	}
+
+	public override AiSteering GetSteering ()
+	{
+		return base.GetSteering ();
 	}
 }

@@ -19,7 +19,7 @@ public class AiAlign : AiBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if (m_Agent != null) {
 			m_Agent.SetSteering(GetSteering());
 		}
