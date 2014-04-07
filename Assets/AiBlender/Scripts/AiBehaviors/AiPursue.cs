@@ -23,11 +23,11 @@ public class AiPursue : AiSeek {
 
 	public override AiSteering GetSteering ()
 	{
-		Vector3 direction = m_PursueTarget.transform.position - gameObject.transform.position;
-		float distance = direction.magnitude;
-		float speed = m_Agent.Velocity.magnitude;
-		float prediction = 0.0f;
-		if (m_Agent != null && m_Target != null) {
+		if (m_Agent != null && m_PursueTarget != null) {
+			Vector3 direction = m_PursueTarget.transform.position - gameObject.transform.position;
+			float distance = direction.magnitude;
+			float speed = m_Agent.Velocity.magnitude;
+			float prediction = 0.0f;
 			if (speed <= distance / m_MaxPrediction) {
 				prediction = m_MaxPrediction;
 			}

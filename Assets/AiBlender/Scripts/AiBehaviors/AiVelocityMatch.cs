@@ -17,7 +17,7 @@ public class AiVelocityMatch : AiBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (m_Agent != null && m_Target != null) {
-			Vector3 targetVel = m_Target.GetComponent<PlayerController>().Velocity;
+			Vector3 targetVel = m_Target.GetComponent<AiAgent>().Velocity;
 			m_Steering.Linear = targetVel - m_Agent.Velocity;
 			m_Steering.Linear = m_Steering.Linear / m_TimeToTarget;
 			if (m_Steering.Linear.sqrMagnitude > m_MaxAccel * m_MaxAccel) {

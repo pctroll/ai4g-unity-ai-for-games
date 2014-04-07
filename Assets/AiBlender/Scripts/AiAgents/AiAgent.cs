@@ -24,7 +24,7 @@ public class AiAgent : MonoBehaviour {
 	/// <summary>
 	/// The agent's orientation.
 	/// </summary>
-	public float m_Orientation;
+	protected float m_Orientation;
 
 	/// <summary>
 	/// The agent's rotation
@@ -84,23 +84,22 @@ public class AiAgent : MonoBehaviour {
 		//Debug.Log("Update AiAgent");
 		m_Steering = new AiSteering();
 		Vector3 translation = m_Velocity * Time.deltaTime;
-		transform.Translate(translation, Space.World);
-
-		//m_Orientation = transform.rotation.eulerAngles.y;
 		m_Orientation += m_Rotation * Time.deltaTime;
 		m_Orientation = m_Orientation < 0.0f ? 360.0f + m_Orientation : m_Orientation;
-		m_Orientation = m_Orientation > 359.9f ? m_Orientation - 360.0f : m_Orientation;
+		m_Orientation = m_Orientation > 360.0f ? m_Orientation - 360.0f : m_Orientation;
 		transform.rotation = new Quaternion();
 		transform.Rotate(Vector3.up, m_Orientation, Space.Self);
+		transform.Translate(translation, Space.World);
 	}
 
 	/// <summary>
 	/// Updates everything after calculating behaviors.
 	/// </summary>
-	public virtual void LateUpdate () {
+	private void LateUpdate () {
 		//Debug.Log("LateUpdate AiAgent");
 		m_Velocity += m_Steering.Linear * Time.deltaTime;
 		m_Rotation += m_Steering.Angular * Time.deltaTime;
+
 		if (m_Velocity.sqrMagnitude > m_MaxSpeed * m_MaxSpeed) {
 			m_Velocity = m_Velocity.normalized * m_MaxSpeed;
 		}

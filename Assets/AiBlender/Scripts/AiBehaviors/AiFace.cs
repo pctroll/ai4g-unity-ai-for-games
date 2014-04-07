@@ -30,10 +30,8 @@ public class AiFace : AiAlign {
 		if (m_Agent != null && m_Target != null) {
 			Vector3 direction = m_FaceTarget.transform.position - gameObject.transform.position;
 			// inverse validation
-			if (direction.sqrMagnitude > 0.0f) {
-				// Unity's way of doing things
-				m_Target.transform.LookAt(m_FaceTarget.transform.position);
-				m_Target.GetComponent<AiAgent>().Orientation = m_Target.transform.rotation.eulerAngles.y;
+			if (direction.magnitude > 0.0f) {
+				m_Target.GetComponent<AiAgent>().Orientation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 			}
 		}
 		return base.GetSteering();

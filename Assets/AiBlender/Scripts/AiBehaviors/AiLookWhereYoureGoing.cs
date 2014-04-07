@@ -14,7 +14,7 @@ public class AiLookWhereYoureGoing : AiAlign {
 	// Update is called once per frame
 	void Update () {
 		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
+			m_Agent.SetSteering(GetSteering(), m_Weight);
 		}
 	}
 
