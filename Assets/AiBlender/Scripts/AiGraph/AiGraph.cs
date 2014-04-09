@@ -16,14 +16,19 @@ public class AiGraph : MonoBehaviour {
             AiVertex ver = v.GetComponent<AiVertex>();
             Debug.Log(ver.m_Successors.Count + " successors");
         }*/
-        
-        List<GameObject> res = Astar(m_Vertices[0], m_Vertices[2]);
+		int src = Random.Range(0, m_Vertices.Length - 1);
+		int dst = Random.Range (0, m_Vertices.Length - 1);
+		while (src == dst) {
+			dst = Random.Range (0, m_Vertices.Length - 1);
+		}
+
+        List<GameObject> res = Astar(m_Vertices[src], m_Vertices[dst]);
         if (res.Count > 0)
         {
-            Debug.Log("A* path:");
+            Debug.Log("A* path from " + m_Vertices[src].name + " to " + m_Vertices[dst].name);
             string path = "";
             foreach (GameObject o in res)
-                path += o.transform.position.ToString() + " | ";
+                path += o.name + " | ";
             Debug.Log(path);
         }
     }
