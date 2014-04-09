@@ -11,3 +11,7 @@
 /*.userprefs
 /*.pidb
 /*.booproj
+
+# Windows
+/*.db
+/*.db.meta
