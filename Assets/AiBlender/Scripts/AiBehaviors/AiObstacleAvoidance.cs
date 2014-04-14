@@ -31,8 +31,7 @@ public class AiObstacleAvoidance : AiSeek {
 		m_Steering = new AiSteering();
 		if (m_Agent != null) {
 			Vector3 position = gameObject.transform.position;
-			// error in vector with velocity, it's look ahead
-			Vector3 rayVector = GetOriAsVec(m_Agent.Orientation) * m_LookAhead;
+			Vector3 rayVector = m_Agent.Velocity.normalized * m_LookAhead;
 			rayVector += position;
 			Vector3 direction = rayVector - position;
 			RaycastHit hit;
