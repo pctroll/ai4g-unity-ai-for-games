@@ -16,8 +16,12 @@ public class AiGraph : MonoBehaviour {
             AiVertex ver = v.GetComponent<AiVertex>();
             Debug.Log(ver.m_Successors.Count + " successors");
         }*/
-		int src = Random.Range(0, m_Vertices.Length - 1);
+
+
+		/*int src = Random.Range(0, m_Vertices.Length - 1);
 		int dst = Random.Range (0, m_Vertices.Length - 1);
+
+
 		while (src == dst) {
 			dst = Random.Range (0, m_Vertices.Length - 1);
 		}
@@ -30,7 +34,7 @@ public class AiGraph : MonoBehaviour {
             foreach (GameObject o in res)
                 path += o.name + " | ";
             Debug.Log(path);
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -70,11 +74,11 @@ public class AiGraph : MonoBehaviour {
 
     public bool PathClear(GameObject a, GameObject b)
     {
-        GameObject[] obstaculos = GameObject.FindGameObjectsWithTag("Wall");
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("AiWall");
 
-        for (int i = 0; i < obstaculos.Length; i++)
+        for (int i = 0; i < obstacles.Length; i++)
         {
-            GameObject obst = obstaculos[i];
+            GameObject obst = obstacles[i];
             Vector3 direction = b.transform.position - a.transform.position;
             Ray r = new Ray(a.transform.position, direction);
             RaycastHit hit;
