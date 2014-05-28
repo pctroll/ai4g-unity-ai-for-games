@@ -7,42 +7,72 @@ public class AiMeshCreator : MonoBehaviour {
 	public GameObject m_VertexMesh;
 
 	Vector3 m_VertexPos;
+	int vid;
 
 	List<GameObject> m_Vertices;
+	List<List<int> > m_Edges;
 
 	// Use this for initialization
 	void Start () {
 		m_Vertices = new List<GameObject>();
-
+		m_Edges = new List<List<int> >();
+		vid = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonUp(0)) {
+			Vector3 src, dst;
 			GameObject newVertex;
 			m_VertexPos = GetScreenToWorldPos(Input.mousePosition);
 			newVertex = Instantiate(m_VertexMesh, m_VertexPos, new Quaternion()) as GameObject;
+			vid++;
+			m_Edges.Add(new List<int>());
+			/*if (m_Vertices.Count > 1) {
+				List<int> closest = GetClosestTwo(m_VertexPos);
+				for (int i = 0; i < closest.Count; i++) {
+					m_Edges[vid].Add(closest[i]);
+					m_Edges[closest[i]].Add(vid);
+				}
+			} else if (m_Vertices.Count > 0) {
+				m_Edges[0].Add(1);
+				m_Edges[vid].Add(0);
+			}*/
 			m_Vertices.Add(newVertex);
 		}
 	}
 
 	void OnDrawGizmos () {
 		Color colorAux = Gizmos.color;
+		int i, j;
+		Vector3 src, dst, direction;
 		if (m_Vertices != null) {
-			Vector3 src = GetScreenToWorldPos(Input.mousePosition);
+			src = GetScreenToWorldPos(Input.mousePosition);
 			if (m_Vertices.Count > 1) {
 				List<int> closest = GetClosestTwo(src);
-				for (int i = 0; i < closest.Count; i++) {
-					Vector3 dst = m_Vertices[closest[i]].transform.position;
-					Vector3 direction = src - dst;
+				for (i = 0; i < closest.Count; i++) {
+					dst = m_Vertices[closest[i]].transform.position;
+					direction = src - dst;
 					Gizmos.color = Color.red;
 					Gizmos.DrawRay(dst, direction);
 				}
 			} else if (m_Vertices.Count > 0) {
-				Vector3 dst = m_Vertices[0].transform.position;
-				Vector3 direction = src - dst;
-				Gizmos.color = Color.red;
+				dst = m_Vertices[0].transform.position;
+				direction = src - dst;
+				Gizmos.color = Color.yellow;
 				Gizmos.DrawRay(dst, direction);
+			}
+
+			for (i = 0; i < m_Edges.Count; i++) {
+				src = m_Vertices[i].transform.position;
+				for (j = 0; j < m_Edges[i].Count; j++) {
+					Debug.Log("vertex: " + i);
+					Debug.Log("neighbor: " + m_Edges[i][j]);
+					/*dst = m_Vertices[m_Edges[i][j]].transform.position;
+					direction = src - dst;
+					Gizmos.color = Color.red;
+					Gizmos.DrawRay(dst, direction);*/
+				}
 			}
 		}
 
