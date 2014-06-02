@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class AiPathWalker : MonoBehaviour {
 
+	public MonoBehaviour m_Next;
+
 	public AiGraph m_Graph;
 	public GameObject m_Target;
 	public float m_TargetDistance = 0.5f;
@@ -12,6 +14,19 @@ public class AiPathWalker : MonoBehaviour {
 	private AiBehaviour m_Seeker;
 	private AiBehaviour m_Arriver;
 	private List<GameObject> m_Path;
+	private bool m_Arrived = false;
+
+	void OnEnable () {
+		m_Path = GetPath();
+		m_Arrived = false;
+	}
+
+	void OnDisable () {
+	}
+
+	void Awake() {
+		m_Path = new List<GameObject>();
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -30,14 +45,10 @@ public class AiPathWalker : MonoBehaviour {
 		if (m_Arriver == null) {
 			Debug.LogError("Arrive AiBehaviour missing from agent");
 		}
-		m_Path = new List<GameObject>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			m_Path = GetPath();
-		}
 		m_Seeker.enabled = false;
 		m_Arriver.enabled = false;
 		m_MyTarget = null;
@@ -49,7 +60,15 @@ public class AiPathWalker : MonoBehaviour {
 		else if (m_Path.Count == 1) {
 			m_Arriver.enabled = true;
 			m_Arriver.m_Target = m_MyTarget = m_Path[0];
+			m_Arrived = true;
 		}
+
+		if (m_Path.Count == 0 && m_Arrived) {
+			m_Next.enabled = true;
+			this.enabled = false;
+		}
+
+
 
 
 		if (m_Path.Count > 1) {
