@@ -5,17 +5,22 @@ using System.Collections.Generic;
 public class AiMeshCreator : MonoBehaviour {
 
 	public GameObject m_VertexMesh;
+	public GameObject m_Vertex;
 
 	Vector3 m_VertexPos;
 	int vid;
 
 	List<GameObject> m_Vertices;
-	List<List<int> > m_Edges;
+
+	List<GameObject> m_Centroids;
+
+	List< List<int> > m_Edges = new List< List<int> >();
 
 	// Use this for initialization
 	void Start () {
 		m_Vertices = new List<GameObject>();
 		m_Edges = new List<List<int> >();
+		m_Centroids = new List<GameObject>();
 		vid = 0;
 	}
 	
@@ -23,28 +28,50 @@ public class AiMeshCreator : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonUp(0)) {
 			Vector3 src, dst;
+			Vector3 a, b, c;
+			int id;
 			GameObject newVertex;
 			m_VertexPos = GetScreenToWorldPos(Input.mousePosition);
 			newVertex = Instantiate(m_VertexMesh, m_VertexPos, new Quaternion()) as GameObject;
-			vid++;
+
 			m_Edges.Add(new List<int>());
-			/*if (m_Vertices.Count > 1) {
+			if (m_Vertices.Count > 1) {
 				List<int> closest = GetClosestTwo(m_VertexPos);
 				for (int i = 0; i < closest.Count; i++) {
-					m_Edges[vid].Add(closest[i]);
-					m_Edges[closest[i]].Add(vid);
+					id = closest[i];
+					m_Edges[id].Add(vid);
+					m_Edges[vid].Add(id);
 				}
-			} else if (m_Vertices.Count > 0) {
+				m_Vertices.Add(newVertex);
+				vid++;
+				a = m_Vertices[closest[0]].transform.position;
+				b = m_Vertices[closest[1]].transform.position;
+				c = m_Vertices[vid-1].transform.position;
+				AddCentroid(a, b, c);
+			} else if (m_Vertices.Count == 1) {
+				m_Vertices.Add(newVertex);
+				vid++;
 				m_Edges[0].Add(1);
-				m_Edges[vid].Add(0);
-			}*/
-			m_Vertices.Add(newVertex);
+				m_Edges[1].Add(0);
+			} else {
+				m_Vertices.Add(newVertex);
+				vid++;
+			}
 		}
+	}
+
+	void AddCentroid (Vector3 a, Vector3 b, Vector3 c) {
+		Vector3 pos = new Vector3();
+		pos.x = (a.x + b.x + c.x)/3.0f;
+		pos.y = (a.y + b.y + c.y)/3.0f;
+		pos.z = (a.z + b.z + c.z)/3.0f;
+		GameObject centroid = Instantiate(m_Vertex, pos, new Quaternion()) as GameObject;
+		m_Centroids.Add(centroid);
 	}
 
 	void OnDrawGizmos () {
 		Color colorAux = Gizmos.color;
-		int i, j;
+		int i, j, id;
 		Vector3 src, dst, direction;
 		if (m_Vertices != null) {
 			src = GetScreenToWorldPos(Input.mousePosition);
@@ -59,19 +86,19 @@ public class AiMeshCreator : MonoBehaviour {
 			} else if (m_Vertices.Count > 0) {
 				dst = m_Vertices[0].transform.position;
 				direction = src - dst;
-				Gizmos.color = Color.yellow;
+				Gizmos.color = Color.red;
 				Gizmos.DrawRay(dst, direction);
 			}
 
+			// Draw Graph
 			for (i = 0; i < m_Edges.Count; i++) {
 				src = m_Vertices[i].transform.position;
 				for (j = 0; j < m_Edges[i].Count; j++) {
-					Debug.Log("vertex: " + i);
-					Debug.Log("neighbor: " + m_Edges[i][j]);
-					/*dst = m_Vertices[m_Edges[i][j]].transform.position;
-					direction = src - dst;
+					id = m_Edges[i][j];
+					dst = m_Vertices[id].transform.position;
+					direction = dst - src;
 					Gizmos.color = Color.red;
-					Gizmos.DrawRay(dst, direction);*/
+					Gizmos.DrawRay(src, direction);
 				}
 			}
 		}
