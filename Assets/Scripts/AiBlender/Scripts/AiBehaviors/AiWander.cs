@@ -1,12 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for an agent to wander around dinamycally
+/// </summary>
 public class AiWander : AiFace {
-
+    /// <summary>
+    /// Maximum acceleration
+    /// </summary>
 	public float m_MaxAccel;
+    /// <summary>
+    /// Wander circle's distance from the agent.
+    /// </summary>
 	public float m_WanderOffset;
+    /// <summary>
+    /// Wander circle radius
+    /// </summary>
 	public float m_WanderRadius = 1.0f;
+    /// <summary>
+    /// Wander threshold for the original random point
+    /// </summary>
 	public float m_WanderRate;
+    /// <summary>
+    /// Internal orientation to be targeted by the agent
+    /// </summary>
 	private float m_WanderOrientation;
 	// Use this for initialization
 	void Start () {
@@ -20,13 +36,10 @@ public class AiWander : AiFace {
 		base.Init ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
-		}
-	}
-
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering () {
 		if (m_Agent != null && m_Target != null) {
 			m_WanderOrientation += Random.Range(-1.0f, 1.0f) * m_WanderRate;

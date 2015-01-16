@@ -1,20 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for an agent to wander around kinematically
+/// </summary>
 public class AiKWander : AiBehaviour {
-
+    /// <summary>
+    /// Maximum rotation in a given frame
+    /// </summary>
 	public float m_MaxRotation;
+    /// <summary>
+    /// Color for the wandering velocity (debugging)
+    /// </summary>
 	public Color m_ColorVelocity = Color.white;
 	void Start () {
 		base.Init();
 	}
 
-	public override void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering(), m_Weight);
-		}
-	}
-	
+	/// <summary>
+	/// Returns the steering
+	/// </summary>
+	/// <returns></returns>
 	public override AiSteering GetSteering () {
 		m_Steering = new AiSteering();
 		if (m_Agent != null) {

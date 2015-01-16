@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Class for handling the on-screen crosshair
+/// </summary>
 public class AiMscCrosshair : MonoBehaviour {
 
 	// Use this for initialization
@@ -15,6 +17,12 @@ public class AiMscCrosshair : MonoBehaviour {
 		gameObject.transform.position = newPosition;
 	}
 
+    /// <summary>
+    /// Transform the mouse position on screen
+    /// to the worl position
+    /// </summary>
+    /// <param name="mousePosition"></param>
+    /// <returns></returns>
 	Vector3 GetScreenToWorldPos (Vector3 mousePosition) {
 		Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 		Plane plane = new Plane(Vector2.up, Vector3.zero);

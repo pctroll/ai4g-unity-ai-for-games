@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+/// <summary>
+/// Custom editor for the OnScreen message
+/// </summary>
 [CustomEditor(typeof(AiMscMessage))]
 public class AiMscMessageEditor : Editor {
 

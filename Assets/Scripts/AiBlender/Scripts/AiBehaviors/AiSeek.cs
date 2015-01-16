@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 /// <summary>
-/// AI Seek behavior.
+/// Behaviour for seeking a target dynamically.
 /// </summary>
 [Serializable]
 public class AiSeek : AiBehaviour {
@@ -23,14 +23,10 @@ public class AiSeek : AiBehaviour {
 		base.Init();
 	}
 
-	/// <summary>
-	/// Update this instance. It's used for updating the agent's steering.
-	/// </summary>
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering(), m_Weight);
-		}
-	}
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null && m_Target != null) {

@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for facing a target agent given
+/// angular acceleration. It's based on Align.
+/// </summary>
 public class AiFace : AiAlign {
-
+    /// <summary>
+    /// Real target to face. The behaviour's original
+    /// variable is used for computing the steering.
+    /// </summary>
 	protected GameObject m_FaceTarget;
 
 	// Use this for initialization
@@ -18,13 +24,11 @@ public class AiFace : AiAlign {
 		m_Target.AddComponent<AiAgent>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
-		}
-	}
 
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null && m_Target != null) {

@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for arriving to a target inematically
+/// </summary>
 public class AiKArrive : AiBehaviour {
-
+    /// <summary>
+    /// Target radius for stopping
+    /// </summary>
 	public float m_Radius = 2.0f;
+    /// <summary>
+    /// Time for applying the behaviour
+    /// </summary>
 	public float m_TimeToTarget = 0.25f;
 
 	// Use this for initialization
@@ -11,6 +18,10 @@ public class AiKArrive : AiBehaviour {
 		base.Init();
 	}
 
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent!= null && m_Target != null) {

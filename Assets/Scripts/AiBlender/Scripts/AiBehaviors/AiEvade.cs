@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for evading a target agent.
+/// It's based on Flee behaviour plus a prediction variable.
+/// </summary>
 public class AiEvade : AiFlee {
 
+    /// <summary>
+    /// Maximum prediction
+    /// </summary>
 	public float m_MaxPrediction;
-	
+	/// <summary>
+	/// Real target to evade. The behaviour's original member
+    /// is used for computing its steering
+	/// </summary>
 	GameObject m_EvadeTarget;
 	
 	// Use this for initialization
@@ -14,13 +23,10 @@ public class AiEvade : AiFlee {
 		m_Target = new GameObject();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
-		}
-	}
-	
+	/// <summary>
+	/// Returns the steering
+	/// </summary>
+	/// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null && m_EvadeTarget != null) {

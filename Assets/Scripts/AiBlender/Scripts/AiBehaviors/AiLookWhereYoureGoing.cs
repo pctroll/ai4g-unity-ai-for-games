@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for aligning the agent to the velocity
+/// vector. Used along with blending and other behaviours
+/// such as Seek or Flee.
+/// </summary>
 public class AiLookWhereYoureGoing : AiAlign {
-
 
 	// Use this for initialization
 	void Start () {
@@ -10,14 +13,11 @@ public class AiLookWhereYoureGoing : AiAlign {
 		m_Target = new GameObject();
 		m_Target.AddComponent<AiAgent>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering(), m_Weight);
-		}
-	}
 
+    /// <summary>
+    /// Returns the steering
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null) {

@@ -1,17 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+/// Behaviour for following a path returned by a
+/// pathfinding algorithm. Proof of concept for a
+/// FSM state.
+/// </summary>
 public class AiPathWalker : MonoBehaviour {
-
+    /// <summary>
+    /// Next behaviour to be applied when
+    /// finished
+    /// </summary>
 	public MonoBehaviour m_Next;
-
+    /// <summary>
+    /// Graph
+    /// </summary>
 	public AiGraph m_Graph;
+    /// <summary>
+    /// Target node
+    /// </summary>
 	public GameObject m_Target;
+    /// <summary>
+    /// Works as target radius for a node to be
+    /// considered close enough.
+    /// </summary>
 	public float m_TargetDistance = 0.5f;
-
+    /// <summary>
+    /// Debug variable for drawing path.
+    /// </summary>
+    public bool m_DrawPath = false;
+    /// <summary>
+    /// Internal target to apply Seek and Arrive
+    /// </summary>
 	private GameObject m_MyTarget;
+    /// <summary>
+    /// Seek beahaviour component
+    /// </summary>
 	private AiBehaviour m_Seeker;
+    /// <summary>
+    /// Arrive behaviour component
+    /// </summary>
 	private AiBehaviour m_Arriver;
 	private List<GameObject> m_Path;
 	private bool m_Arrived = false;
@@ -68,18 +96,17 @@ public class AiPathWalker : MonoBehaviour {
 			this.enabled = false;
 		}
 
-
-
+        if (!m_DrawPath)
+            return;
 
 		if (m_Path.Count > 1) {
 			int i;
 			Vector3 src;
 			Vector3 dst;
-			Vector3 dir;
 			for (i = 0; i < m_Path.Count-1; i++) {
 				src = m_Path[i].transform.position;
 				dst = m_Path[i+1].transform.position;
-				dir = dst - src;
+				Vector3 dir = dst - src;
 				Debug.DrawRay(src, dir, Color.red);
 			}
 		}
@@ -119,8 +146,8 @@ public class AiPathWalker : MonoBehaviour {
 				src = m_Path[i].transform.position;
 				dst = m_Path[i+1].transform.position;
 				dir = dst - src;
-				//Gizmos.color = Color.red;
-				//Gizmos.DrawRay(src, dir);
+				Gizmos.color = Color.red;
+				Gizmos.DrawRay(src, dir);
 			}
 		}
 	}

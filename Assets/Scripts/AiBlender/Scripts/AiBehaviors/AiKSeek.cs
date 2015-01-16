@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for seeking a target kinematically
+/// </summary>
 public class AiKSeek : AiBehaviour {
 
 	// Use this for initialization
 	void Start () {
 		base.Init();
 	}
-
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering () {
 		if (m_Agent!= null && m_Target != null) {
 			m_Steering.Linear = m_Target.transform.position - gameObject.transform.position;

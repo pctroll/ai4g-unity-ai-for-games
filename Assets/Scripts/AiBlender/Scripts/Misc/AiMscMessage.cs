@@ -1,11 +1,21 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections;
+/// <summary>
+/// Class for handling the on-screen messages like
+/// title and instructions.
+/// </summary>
 [ExecuteInEditMode]
 public class AiMscMessage : MonoBehaviour {
-
+    /// <summary>
+    /// Message title (screen title)
+    /// </summary>
 	private string m_MsgTitle;
+    /// <summary>
+    /// Message body (instructions)
+    /// </summary>
 	public string m_MsgBody;
+
 	GUIStyle m_MsgTitleStyle;
 	GUIStyle m_MsgBodyStyle;
 	GUIStyle m_MsgStyle;

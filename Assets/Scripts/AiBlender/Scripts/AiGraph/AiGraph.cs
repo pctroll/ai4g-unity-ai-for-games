@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+/// Class for representing a graph
+/// </summary>
 public class AiGraph : MonoBehaviour {
 
     private GameObject[] m_Vertices;
@@ -11,41 +13,6 @@ public class AiGraph : MonoBehaviour {
     void Start ()
     {
         m_Vertices = GameObject.FindGameObjectsWithTag("AiVertex");
-		Debug.Log(m_Vertices.Length);
-        /*foreach (GameObject v in m_Vertices)
-        {
-            AiVertex ver = v.GetComponent<AiVertex>();
-            Debug.Log(ver.m_Successors.Count + " successors");
-        }*/
-
-
-		/*int src = Random.Range(0, m_Vertices.Length - 1);
-		int dst = Random.Range (0, m_Vertices.Length - 1);
-
-
-		while (src == dst) {
-			dst = Random.Range (0, m_Vertices.Length - 1);
-		}
-
-        List<GameObject> res = Astar(m_Vertices[src], m_Vertices[dst]);
-        if (res.Count > 0)
-        {
-            Debug.Log("A* path from " + m_Vertices[src].name + " to " + m_Vertices[dst].name);
-            string path = "";
-            foreach (GameObject o in res)
-                path += o.name + " | ";
-            Debug.Log(path);
-        }*/
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-    }
-
-    void OnDrawGizmos ()
-    {
-
     }
 
     /// <summary>
@@ -85,15 +52,8 @@ public class AiGraph : MonoBehaviour {
             RaycastHit hit;
             if (obst.collider.Raycast(r, out hit, direction.magnitude))
             {
-                //Debug.LogWarning("HHHHHHHH");
                 return false;
             }
-
-            /*if (Physics.Raycast(r, out hit)) //, out hit, 15F))
-            {
-                if (hit.transform.gameObject.tag == "Player")
-                    npc.GetComponent<NPCControl>().SetTransition(Transition2.SawPlayer);
-            }*/
         }
         return true;
     }
@@ -153,6 +113,4 @@ public class AiGraph : MonoBehaviour {
             }
         }
     }
-
-
 }

@@ -1,11 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for avoiding collisions between agents.
+/// It works along with blending and movement behaviours
+/// such as Seek and Flee.
+/// </summary>
 public class AiSeparation : AiBehaviour {
-
+    /// <summary>
+    /// Separation distance
+    /// </summary>
 	public float m_Threshold;
+    /// <summary>
+    /// Coefficient for applying separation force
+    /// </summary>
 	public float m_DecayCoefficient;
+    /// <summary>
+    /// Maximum acceleration.
+    /// </summary>
 	public float m_MaxAccel;
+    /// <summary>
+    /// List of other agents to avoid
+    /// </summary>
 	GameObject[] m_Targets;
 
 	// Use this for initialization
@@ -14,13 +29,10 @@ public class AiSeparation : AiBehaviour {
 		m_Targets = GameObject.FindGameObjectsWithTag("AiAgent");
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering(), m_Weight);
-		}
-	}
-
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		m_Steering = new AiSteering();

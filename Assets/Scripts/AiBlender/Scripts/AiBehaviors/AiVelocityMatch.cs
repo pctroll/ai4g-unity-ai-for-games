@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for matching the velocity of a target agent.
+/// </summary>
 public class AiVelocityMatch : AiBehaviour {
-
+    /// <summary>
+    /// Maximum acceleration
+    /// </summary>
 	public float m_MaxAccel;
-
+    /// <summary>
+    /// Time to apply the behaviour
+    /// </summary>
 	public float m_TimeToTarget = 0.1f;
-
+    /// <summary>
+    /// Color for drawing the velocity (debugging)
+    /// </summary>
 	public Color m_LineColor = Color.white;
 
 	// Use this for initialization
@@ -14,19 +22,27 @@ public class AiVelocityMatch : AiBehaviour {
 		base.Init();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null && m_Target != null) {
-			Vector3 targetVel = m_Target.GetComponent<AiAgent>().Velocity;
-			m_Steering.Linear = targetVel - m_Agent.Velocity;
-			m_Steering.Linear = m_Steering.Linear / m_TimeToTarget;
-			if (m_Steering.Linear.sqrMagnitude > m_MaxAccel * m_MaxAccel) {
-				m_Steering.Linear = m_Steering.Linear.normalized * m_MaxAccel;
-			}
-			m_Agent.SetSteering(m_Steering);
-			if (m_DrawLines) {
-				Debug.DrawRay(gameObject.transform.position, m_Steering.Linear);
-			}
-		}
-	}
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
+    public override AiSteering GetSteering()
+    {
+        AiSteering steering = new AiSteering();
+        if (m_Agent != null && m_Target != null)
+        {
+            Vector3 targetVel = m_Target.GetComponent<AiAgent>().Velocity;
+            steering.Linear = targetVel - m_Agent.Velocity;
+            steering.Linear = m_Steering.Linear / m_TimeToTarget;
+            if (steering.Linear.sqrMagnitude > m_MaxAccel * m_MaxAccel)
+            {
+                steering.Linear = steering.Linear.normalized * m_MaxAccel;
+            }
+            if (m_DrawLines)
+            {
+                Debug.DrawRay(gameObject.transform.position, m_Steering.Linear);
+            }
+        }
+        return steering;
+    }
 }

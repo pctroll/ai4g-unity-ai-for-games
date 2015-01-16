@@ -27,7 +27,6 @@ public class AiMeshCreator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonUp(0)) {
-			Vector3 src, dst;
 			Vector3 a, b, c;
 			int id;
 			GameObject newVertex;

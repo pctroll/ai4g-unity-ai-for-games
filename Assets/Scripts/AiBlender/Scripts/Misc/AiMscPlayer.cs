@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Class for a player's controller that derives
+/// from the Agent's parent class
+/// </summary>
 public class AiMscPlayer : AiAgent {
 
+    /// <summary>
+    /// On-screen crosshair
+    /// </summary>
 	public GameObject m_Crosshair;
 
 	/// <summary>
@@ -41,7 +47,12 @@ public class AiMscPlayer : AiAgent {
 		m_Orientation = transform.rotation.eulerAngles.y;
 	}
 
-	
+	/// <summary>
+	/// Transforms the on-screen mouse position to world position.
+    /// Used along with the crosshair
+	/// </summary>
+	/// <param name="mousePosition"></param>
+	/// <returns></returns>
 	Vector3 GetScreenToWorldPos (Vector3 mousePosition) {
 		Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 		float playerY = gameObject.transform.position.y;

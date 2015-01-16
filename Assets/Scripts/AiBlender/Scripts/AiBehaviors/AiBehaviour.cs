@@ -33,10 +33,13 @@ public class AiBehaviour : MonoBehaviour {
 	protected AiAgent m_Agent;
 
 	/// <summary>
-	/// The m_ steering.
+	/// The steering.
 	/// </summary>
 	protected AiSteering m_Steering;
 
+	/// <summary>
+	/// Behaviour's initialization code
+	/// </summary>
 	public virtual void Init () {
 		m_Steering = new AiSteering();
 		m_Character = this.gameObject;
@@ -45,22 +48,44 @@ public class AiBehaviour : MonoBehaviour {
 			Debug.LogError("No AiAgent component found");
 	}
 
+    /// <summary>
+    /// General update mode in order to get the
+    /// behaviours component's steering and send it to 
+    /// the agent component
+    /// </summary>
 	public virtual void Update () {
 		if (m_Agent!= null) {
-			m_Agent.SetSteering(GetSteering());
+			m_Agent.SetSteering(GetSteering(), m_Weight);
 		}
 	}
 
+    /// <summary>
+    /// Returns the steering values to update the agent
+    /// </summary>
+    /// <returns>the behaviour's steering</returns>
 	public virtual AiSteering GetSteering () {
 		return m_Steering;
 	}
 
+    /// <summary>
+    /// [deprecated]Sets the agent's orientation according to its
+    /// velocity. Used along with kinematic behaviours.
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <param name="velocity"></param>
 	public void SetNewOrientation (Transform transform, Vector3 velocity) {
 		if (velocity.sqrMagnitude > 0.0f) {
 			transform.LookAt(transform.position + velocity);
 		}
 	}
 
+    /// <summary>
+    /// Returns the agent's orientation according to its
+    /// velocity. Used along with kinematic behaviours.
+    /// </summary>
+    /// <param name="currentOrientation"></param>
+    /// <param name="velocity"></param>
+    /// <returns></returns>
 	public float GetNewOrientation (float currentOrientation, Vector3 velocity) {
 		float orientation = currentOrientation;
 		if (velocity.sqrMagnitude > 0.0f) {
@@ -69,6 +94,13 @@ public class AiBehaviour : MonoBehaviour {
 		return orientation;
 	}
 
+    /// <summary>
+    /// Convert a given rotation from a 0,360 interval
+    /// to -180,180 interval.
+    /// 
+    /// </summary>
+    /// <param name="rotation"></param>
+    /// <returns>Rotation from -180 to 180</returns>
 	public float MapToRange (float rotation) {
 		rotation %= 360.0f;
 		if (Mathf.Abs(rotation) > 180.0f) {
@@ -80,6 +112,11 @@ public class AiBehaviour : MonoBehaviour {
 		return rotation;
 	}
 
+    /// <summary>
+    /// Transforms a given orientation (degrees) to a direction vector
+    /// </summary>
+    /// <param name="orientation"></param>
+    /// <returns></returns>
 	public Vector3 GetOriAsVec (float orientation) {
 		Vector3 vector  = Vector3.zero;
 		vector.x = Mathf.Sin(orientation * Mathf.Deg2Rad) * 1.0f;
@@ -87,6 +124,12 @@ public class AiBehaviour : MonoBehaviour {
 		return vector.normalized;
 	}
 
+    /// <summary>
+    /// Draws a circle around a position. Used for debugging.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="color"></param>
+    /// <param name="radius"></param>
 	public void DrawCircle (Vector3 position, Color color, float radius = 1.0f) {
 		position.y = 0.15f;
 		Vector3 current, next, direction;

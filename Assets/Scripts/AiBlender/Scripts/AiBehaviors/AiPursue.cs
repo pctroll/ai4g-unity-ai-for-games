@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Behaviour for pursuing a target.
+/// It's based on Seek plus a predicttion variable.
+/// </summary>
 public class AiPursue : AiSeek {
-
+    /// <summary>
+    /// Maximum prediction
+    /// </summary>
 	public float m_MaxPrediction;
-
+	/// <summary>
+	/// Real target to evade. The behaviour's original member
+    /// is used for computing its steering
+	/// </summary>
 	GameObject m_PursueTarget;
 
 	// Use this for initialization
@@ -13,14 +21,11 @@ public class AiPursue : AiSeek {
 		m_PursueTarget = m_Target;
 		m_Target = new GameObject();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
-		}
-	}
 
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null && m_PursueTarget != null) {

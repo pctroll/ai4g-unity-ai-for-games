@@ -1,11 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// FSM state for wandering around
+/// </summary>
 public class AiStWander : MonoBehaviour {
-
+    /// <summary>
+    /// Next FSM state
+    /// </summary>
 	public MonoBehaviour m_Next;
+    /// <summary>
+    /// Wander behaviour component
+    /// </summary>
 	public AiWander m_Wander;
+    /// <summary>
+    /// Distance to decide chasing
+    /// </summary>
 	public float m_DistanceToChase;
+    /// <summary>
+    /// Target object (must have an agent component)
+    /// </summary>
 	public GameObject m_Target;
 
 	void OnEnable () {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 /// <summary>
-/// AI Flee behavior.
+/// Behaviour for fleeing from a target
 /// </summary>
 public class AiFlee : AiBehaviour {
 	/// <summary>
@@ -20,16 +20,11 @@ public class AiFlee : AiBehaviour {
 	void Start () {
 		base.Init();
 	}
-	
-	/// <summary>
-	/// Update this instance. It's used for updating the agent's steering.
-	/// </summary>
-	void Update () {
-		if (m_Agent != null) {
-			m_Agent.SetSteering(GetSteering());
-		}
-	}
 
+    /// <summary>
+    /// Returns the steering.
+    /// </summary>
+    /// <returns></returns>
 	public override AiSteering GetSteering ()
 	{
 		if (m_Agent != null && m_Target != null) {
