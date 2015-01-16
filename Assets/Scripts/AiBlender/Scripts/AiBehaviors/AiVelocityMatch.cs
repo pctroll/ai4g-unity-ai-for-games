@@ -33,14 +33,14 @@ public class AiVelocityMatch : AiBehaviour {
         {
             Vector3 targetVel = m_Target.GetComponent<AiAgent>().Velocity;
             steering.Linear = targetVel - m_Agent.Velocity;
-            steering.Linear = m_Steering.Linear / m_TimeToTarget;
+            steering.Linear = steering.Linear / m_TimeToTarget;
             if (steering.Linear.sqrMagnitude > m_MaxAccel * m_MaxAccel)
             {
                 steering.Linear = steering.Linear.normalized * m_MaxAccel;
             }
             if (m_DrawLines)
             {
-                Debug.DrawRay(gameObject.transform.position, m_Steering.Linear);
+                Debug.DrawRay(gameObject.transform.position, steering.Linear);
             }
         }
         return steering;
